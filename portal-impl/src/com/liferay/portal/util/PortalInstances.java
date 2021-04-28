@@ -138,6 +138,26 @@ public class PortalInstances {
 			_log.debug("Set company id " + companyId);
 		}
 
+		// create/update company with new host here
+		try {
+			Company currComp = CompanyLocalServiceUtil.fetchCompanyById(companyId);
+
+			CompanyLocalServiceUtil.updateCompany(
+				companyId,
+				request.getServerName(),
+				currComp.getMx(),
+				currComp.getMaxUsers(),
+				currComp.isActive()
+			);
+		} catch (Exception e) {
+			_log.error(
+				"Update company failed " 
+				+ companyId 
+				+ " host " 
+				+ request.getServerName()
+			);
+		}
+
 		request.setAttribute(WebKeys.COMPANY_ID, Long.valueOf(companyId));
 
 		CompanyThreadLocal.setCompanyId(companyId);
