@@ -51,8 +51,7 @@ public class AssignTaskMVCActionCommand
 			themeDisplay.getCompanyId(), workflowTaskId);
 
 		if (!_workflowTaskPermissionChecker.hasPermission(
-				themeDisplay.getScopeGroupId(), workflowTask,
-				themeDisplay.getPermissionChecker())) {
+				themeDisplay, workflowTask)) {
 
 			throw new PrincipalException(
 				String.format(

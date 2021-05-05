@@ -21,12 +21,44 @@ import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.workflow.WorkflowTask;
 import com.liferay.portal.kernel.workflow.WorkflowTaskAssignee;
 
+
+import com.liferay.portal.kernel.theme.ThemeDisplay;
+import com.liferay.portal.kernel.service.GroupLocalServiceUtil;
+import java.util.List;
+import com.liferay.portal.kernel.model.Group;
+import com.liferay.portal.kernel.exception.PortalException;
 /**
  * @author Adam Brandizzi
  */
 public class WorkflowTaskPermissionChecker {
 
 	public boolean hasPermission(
+		ThemeDisplay themeDisplay, WorkflowTask workflowTask) 
+		throws PortalException{
+		
+		//get all group for current user
+		//check if usergroup has permission
+		List<Group> groups = GroupLocalServiceUtil.getUserGroups(themeDisplay.getUserId(), true);
+
+		for (Group group : groups) {
+			if (_hasPermission(
+				group.getGroupId(), workflowTask,
+				themeDisplay.getPermissionChecker()
+				)) {
+				return true;
+			}
+		}
+
+		if (_hasPermission(
+			themeDisplay.getScopeGroupId(), workflowTask,
+			themeDisplay.getPermissionChecker()
+			)) {
+			return true;
+		}
+		return false;
+	}
+
+	private boolean _hasPermission(
 		long groupId, WorkflowTask workflowTask,
 		PermissionChecker permissionChecker) {
 
@@ -36,10 +68,10 @@ public class WorkflowTaskPermissionChecker {
 			return true;
 		}
 
-		if (!permissionChecker.isContentReviewer(
+		if (permissionChecker.isContentReviewer(
 				permissionChecker.getCompanyId(), groupId)) {
 
-			return false;
+			return true;
 		}
 
 		long[] roleIds = permissionChecker.getRoleIds(

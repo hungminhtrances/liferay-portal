@@ -124,9 +124,7 @@ public class MyWorkflowTaskPortlet extends MVCPortlet {
 		throws PortalException {
 
 		if (!_workflowTaskPermissionChecker.hasPermission(
-				themeDisplay.getScopeGroupId(), workflowTask,
-				themeDisplay.getPermissionChecker())) {
-
+			themeDisplay, workflowTask)) {
 			throw new PrincipalException(
 				String.format(
 					"User %d does not have permission to view task %d",
