@@ -321,6 +321,8 @@ AUI.add(
 					_startTimer: function() {
 						var instance = this;
 
+						var sessionState = instance.get('sessionState');
+
 						var sessionLength = instance.get('sessionLength');
 						var warningTime = instance.get('warningTime');
 
@@ -359,8 +361,6 @@ AUI.add(
 										extend = false;
 										hasExpired = true;
 									}
-
-									var sessionState = instance.get('sessionState');
 
 									if (hasExpired && sessionState != 'expired') {
 										if (extend) {
