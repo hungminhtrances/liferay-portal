@@ -85,7 +85,7 @@ dlSearchContainer.setResults(foldersAndFileEntriesAndFileShortcuts);
 							name="title"
 						>
 							<aui:a href="<%= rowURL.toString() %>">
-								<%= HtmlUtil.escape(curFolder.getName()) %>
+								<%= HtmlUtil.unescape(curFolder.getName()) %>
 							</aui:a>
 						</liferay-ui:search-container-column-text>
 					</c:when>

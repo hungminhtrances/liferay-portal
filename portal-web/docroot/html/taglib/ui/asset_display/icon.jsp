@@ -39,10 +39,10 @@ AssetRendererFactory assetRendererFactory = (AssetRendererFactory)request.getAtt
 	<div class="card-row card-row-layout-fixed card-row-padded card-row-valign-top">
 		<div class="card-col-content lfr-card-details-column">
 			<span class="lfr-card-title-text truncate-text">
-				<%= HtmlUtil.escape(assetRenderer.getTitle(locale)) %>
+				<%= HtmlUtil.unescape(assetRenderer.getTitle(locale)) %>
 			</span>
 			<span class="lfr-card-subtitle-text truncate-text">
-				<%= HtmlUtil.escape(assetRendererFactory.getTypeName(locale)) %>
+				<%= HtmlUtil.unescape(assetRendererFactory.getTypeName(locale)) %>
 			</span>
 		</div>
 	</div>
