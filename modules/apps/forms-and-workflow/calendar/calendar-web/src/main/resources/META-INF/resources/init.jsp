@@ -198,7 +198,6 @@ List<Calendar> userCalendars = Collections.emptyList();
 if (userCalendarResource != null) {
 	userCalendars = CalendarServiceUtil.search(themeDisplay.getCompanyId(), null, new long[] {userCalendarResource.getCalendarResourceId()}, null, true, QueryUtil.ALL_POS, QueryUtil.ALL_POS, (OrderByComparator)null);
 }
-
 List<Calendar> otherCalendars = new ArrayList<Calendar>();
 
 long[] calendarIds = StringUtil.split(SessionClicks.get(request, "com.liferay.calendar.web_otherCalendars", StringPool.BLANK), 0L);
@@ -219,7 +218,7 @@ for (Calendar groupCalendar : groupCalendars) {
 
 if (defaultCalendar == null) {
 	for (Calendar userCalendar : userCalendars) {
-		if (userCalendar.isDefaultCalendar()) {
+		if (userCalendar.isDefaultCalendar() && CalendarPermission.contains(themeDisplay.getPermissionChecker(), userCalendar, CalendarActionKeys.MANAGE_BOOKINGS)) {
 			defaultCalendar = userCalendar;
 		}
 	}

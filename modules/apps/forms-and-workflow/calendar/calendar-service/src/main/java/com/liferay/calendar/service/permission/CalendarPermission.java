@@ -35,7 +35,7 @@ public class CalendarPermission {
 		throws PortalException {
 
 		if (!contains(permissionChecker, calendar, actionId)) {
-			throw new PrincipalException();
+			throw new PrincipalException("Error: User has no permission for " + calendar.toString() + " aid" + actionId);
 		}
 	}
 
